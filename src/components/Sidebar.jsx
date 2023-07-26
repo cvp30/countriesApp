@@ -2,25 +2,22 @@ import { useQuery } from '@apollo/client'
 import Logo from './Logo'
 import { GET_ALL_COUNTRIES } from '../graphql'
 import { CountriesData } from '../context/CountriesContext'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import Continents from './Continents'
 
 const Sidebar = () => {
-
+  const [active, setActive] = useState(false)
   const itemClass = "text-white hover:bg-white hover:text-dark capitalize rounded-md px-4 py-2 cursor-pointer "
 
-  const { data, refetch } = useQuery(GET_ALL_COUNTRIES, {
+  const { data } = useQuery(GET_ALL_COUNTRIES, {
     fetchPolicy: 'cache-and-network'
   })
   const { setCountriesArr } = CountriesData()
 
   const handleHome = () => {
-    refetch()
-    if (data) setCountriesArr(data)
+    setCountriesArr(data.countries)
   }
 
-  // useEffect(()=>{
-  //   if(data) setCountriesArr(data)
-  // }, [data, setCountriesArr])
 
   return (
     <aside
@@ -33,9 +30,16 @@ const Sidebar = () => {
           <h2 className='text-start'>Home</h2>
         </button>
 
-        <button className={itemClass}>
+        <button onClick={() => setActive(true)} className={itemClass}>
           <h2 className='text-start'>Continents</h2>
         </button>
+
+        {
+          active ?
+            <Continents setActive={setActive} /> : ''
+        }
+
+
 
       </div>
 

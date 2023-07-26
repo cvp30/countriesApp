@@ -1,12 +1,12 @@
 import PropTypes from "prop-types"
+import useImage from "../hooks/useImage"
 
 const CountryCard = ({ code, name, continent }) => {
 
-  const image = "https://www.quieroviajarsola.com/wp-content/uploads/2022/10/Viajar-sola-a-Paris-Torre-Eiffel-de-noche.webp"
+  const image = useImage(name)
 
   return (
     <div
-      // onClick={() => handleClick(code, image)}
       className="h-full w-full bg-white rounded-2xl shadow-md group hover:bg-blue shadow-silver cursor-pointer"
     >
       <div className="w-full h-2/3">

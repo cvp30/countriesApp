@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { GET_COUNTRY_DETAIL } from '../graphql';
+import { useEffect, useState } from 'react';
 
 
 const CountryDetail = ({ code }) => {
@@ -10,16 +11,22 @@ const CountryDetail = ({ code }) => {
       code
     },
   })
+  const [image, setImage] = useState("")
 
   const subtitle = "text-lg text-blue font-bold"
   const content = "text-silver font-semibold pl-3"
 
+  useEffect(() => {
+    if (!loading && data) {
+      setImage(localStorage.getItem(data.country.name))
+    }
+  }, [loading, data])
   if (loading) return <p>LOADING</p>
 
   return (
     <div className="w-full h-full bg-white flex flex-col justify-start items-center gap-3 px-8 pt-4">
       <img
-        src="https://www.quieroviajarsola.com/wp-content/uploads/2022/10/Viajar-sola-a-Paris-Torre-Eiffel-de-noche.webp"
+        src={image}
         alt="img"
         className='h-48 w-full rounded-xl'
       />

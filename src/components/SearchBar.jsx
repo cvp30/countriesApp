@@ -6,12 +6,13 @@ import { CountriesData } from "../context/CountriesContext"
 const SearchBar = () => {
 
   const { data, loading } = useQuery(GET_ALL_COUNTRIES)
-  const { setCountriesArr } = CountriesData()
+  const { setIsOpen, setCountriesArr } = CountriesData()
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const countryName = event.target.name.value
 
+    setIsOpen(false)
     if (!loading && data) {
       const countriesFiltered = data.countries.filter(country => country.name.toLowerCase().includes(countryName.toLowerCase()))
       setCountriesArr(countriesFiltered)

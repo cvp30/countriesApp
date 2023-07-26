@@ -9,10 +9,9 @@ import { CountriesData } from "../context/CountriesContext"
 
 const MainContent = () => {
 
-  const [isOpen, setIsOpen] = useState(false)
   const [countryCode, setCountryCode] = useState("")
   const { data, loading } = useQuery(GET_ALL_COUNTRIES)
-  const { countriesArr, setCountriesArr } = CountriesData()
+  const { isOpen, setIsOpen, countriesArr, setCountriesArr } = CountriesData()
 
 
   const handleDetail = (code) => {
