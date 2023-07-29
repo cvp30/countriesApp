@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 const useImage = (name) => {
   const [image, setImage] = useState(localStorage.getItem(name))
 
-  const KEY = "38480511-9195bf9dd874b53ecbde34d98"
+  const KEY = import.meta.env.VITE_KEY
 
   useEffect(() => {
     if (!image) {

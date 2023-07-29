@@ -1,47 +1,51 @@
-import { useQuery } from "@apollo/client"
-import { GET_ALL_COUNTRIES } from "../graphql"
+import { useSearchParams } from "react-router-dom"
 import { SearchIcon } from "../icons"
-import { CountriesData } from "../context/CountriesContext"
 
 const SearchBar = () => {
 
-  const { data, loading } = useQuery(GET_ALL_COUNTRIES)
-  const { setIsOpen, setCountriesArr } = CountriesData()
+  const [, setParams] = useSearchParams();
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const countryName = event.target.name.value
 
-    setIsOpen(false)
-    if (!loading && data) {
-      const countriesFiltered = data.countries.filter(country => country.name.toLowerCase().includes(countryName.toLowerCase()))
-      setCountriesArr(countriesFiltered)
+    if (countryName.trim().length) {
+      setParams({
+        country: countryName
+      })
     }
+
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-[34rem] h-16 bg-white box-border mx-auto px-5 py-2 flex justify-between rounded-full shadow-md shadow-silver  sticky top-2"
-    >
-      <div className="flex flex-col grow">
-        <h3 className="text-silver font-semibold">País</h3>
-        <input
-          type="text"
-          name="name"
-          placeholder="Escribe el pais que deseas ver"
-          className="w-1/2 text-sm text-silver outline-none"
-          autoComplete="off"
-        />
-      </div>
+    <header className=" w-full h-20 lg:h-1/6 py-2 lg:py-4 flex justify-center items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="w-11/12 lg:w-2/3 h-full px-5 py-2 flex justify-between bg-white shadow-md shadow-silver rounded-full"
+      >
+        <div className="flex-grow flex flex-col">
+          <label htmlFor="inputField" className="text-xl font-semibold">Country</label>
+          <input
+            id="inputField"
+            name="name"
+            type="text"
+            className="text-xs outline-none"
+            placeholder="Write the country here..."
+            autoComplete="off"
+          />
+        </div>
 
-      <button className="h-full w-44 border rounded-full flex justify-center items-center gap-3 bg-blue text-white text-xl">
-        <SearchIcon />
-        Buscar
-      </button>
+        <button
+          className="h-full w-fit p-3 sm:p-5 rounded-full flex justify-center items-center gap-3 bg-blue text-white"
+        >
+          <SearchIcon />
+          <h3 className="hidden sm:block">
+            Search
+          </h3>
+        </button>
 
-
-    </form>
+      </form>
+    </header>
   )
 }
 

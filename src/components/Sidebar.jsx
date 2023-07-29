@@ -1,50 +1,46 @@
-import { useQuery } from '@apollo/client'
-import Logo from './Logo'
-import { GET_ALL_COUNTRIES } from '../graphql'
-import { CountriesData } from '../context/CountriesContext'
-import { useState } from 'react'
-import Continents from './Continents'
+import { useState } from "react"
+import { CloseIcon, MenuIcon } from "../icons"
+import Logo from "./Logo"
+import Menu from "./Menu"
+import { Link } from "react-router-dom"
 
-const Sidebar = () => {
-  const [active, setActive] = useState(false)
-  const itemClass = "text-white hover:bg-white hover:text-dark capitalize rounded-md px-4 py-2 cursor-pointer "
+const SideBar = () => {
 
-  const { data } = useQuery(GET_ALL_COUNTRIES, {
-    fetchPolicy: 'cache-and-network'
-  })
-  const { setCountriesArr } = CountriesData()
-
-  const handleHome = () => {
-    setCountriesArr(data.countries)
-  }
-
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <aside
-      className="w-full md:w-1/5 h-screen bg-sidebar flex flex-col items-center gap-6 pt-2 px-7 sticky top-0"
-    >
-      <Logo />
+    <aside className="flex lg:flex-col items-center justify-between lg:justify-start lg:w-1/4 lg:h-full w-full h-1/6 lg:gap-10 bg-silver py-4 px-2">
+      <Link to='/' className="w-fit h-fit z-50">
+        <Logo />
+      </Link>
 
-      <div className="w-full flex flex-col gap-2 ">
-        <button onClick={handleHome} className={itemClass}>
-          <h2 className='text-start'>Home</h2>
-        </button>
-
-        <button onClick={() => setActive(true)} className={itemClass}>
-          <h2 className='text-start'>Continents</h2>
-        </button>
-
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="lg:hidden text-white z-50"
+      >
         {
-          active ?
-            <Continents setActive={setActive} /> : ''
+          isOpen ?
+            <CloseIcon />
+            :
+            <MenuIcon />
         }
+      </button>
 
-
-
+      <div className="hidden lg:block w-full px-4">
+        <Menu />
       </div>
 
+      {
+        isOpen ?
+          (
+            <div className={`w-full bottom-0 absolute top-0 left-0 bg-silver flex justify-center items-center px-10`}>
+              <Menu />
+            </div>
+          )
+          : <></>
+      }
     </aside>
   )
 }
 
-export default Sidebar
+export default SideBar

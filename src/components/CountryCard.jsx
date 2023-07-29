@@ -1,5 +1,5 @@
-import PropTypes from "prop-types"
-import useImage from "../hooks/useImage"
+import PropTypes from 'prop-types'
+import useImage from '../hooks/useImage'
 
 const CountryCard = ({ code, name, continent }) => {
 
@@ -7,38 +7,34 @@ const CountryCard = ({ code, name, continent }) => {
 
   return (
     <div
-      className="h-full w-full bg-white rounded-2xl shadow-md group hover:bg-blue shadow-silver cursor-pointer"
+      className='w-full h-full'
     >
-      <div className="w-full h-2/3">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full rounded-t-2xl object-cover"
-        />
-      </div>
+      <img
+        alt={name}
+        src={image}
+        className='w-full h-2/3 object-cover rounded-t-2xl'
+      />
 
-      <div className="h-1/3 w-full flex gap-2 px-2">
-        <picture className="h-full w-1/4 flex justify-center items-center">
-          <img
-            src={`https://flagcdn.com/h40/${code.toLowerCase()}.webp`}
-            alt={code}
-            className="h-10 w-16"
-          />
-        </picture>
+      <div className='w-full h-1/3 flex items-center gap-3 px-2'>
+        <img
+          alt={code}
+          src={`https://flagcdn.com/h40/${code.toLowerCase()}.webp`}
+          className='h-10 w-1/4'
+        />
 
         <div className="h-full w-3/4 flex flex-col justify-center items-start">
           <p className="w-full text-lg text-blue group-hover:text-white font-bold truncate">{name}</p>
-          <p className="text-silver group-hover:text-white font-semibold">{continent}</p>
+          <p className="group-hover:text-white font-semibold">{continent}</p>
         </div>
       </div>
     </div>
   )
 }
 
+export default CountryCard
+
 CountryCard.propTypes = {
   code: PropTypes.string,
   name: PropTypes.string,
   continent: PropTypes.string,
 }
-
-export default CountryCard

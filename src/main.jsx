@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client"
-import { CountriesContextProvider } from './context/CountriesContext.jsx'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router/index.jsx'
+import './index.css'
 
 const client = new ApolloClient({
   connectToDevTools: true,
@@ -14,8 +14,6 @@ const client = new ApolloClient({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ApolloProvider client={client}>
-    <CountriesContextProvider>
-      <App />
-    </CountriesContextProvider>
+    <RouterProvider router={router} />
   </ApolloProvider>,
 )

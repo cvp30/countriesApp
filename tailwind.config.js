@@ -5,12 +5,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      dropShadow: {
+        'iconSky': '0px 4px 6px #009cff',
+      },
+    },
     colors: {
-      'sidebar': '#676767',
+      'silver': '#676767',
       'white': 'white',
+      'darkBg': '#00000076',
       'dark': 'black',
-      'silver': '#7a7a7a',
       'blue': '#009cff',
       'sky': '#e3f4ff',
     }

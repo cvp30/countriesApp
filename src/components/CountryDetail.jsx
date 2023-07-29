@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client"
+import { GET_COUNTRY_DETAIL } from "../graphql/queries"
 import PropTypes from 'prop-types';
-import { GET_COUNTRY_DETAIL } from '../graphql';
-import { useEffect, useState } from 'react';
-
+import Loader from "./Loader";
+import { useEffect, useState } from "react";
 
 const CountryDetail = ({ code }) => {
 
@@ -11,6 +11,7 @@ const CountryDetail = ({ code }) => {
       code
     },
   })
+
   const [image, setImage] = useState("")
 
   const subtitle = "text-lg text-blue font-bold"
@@ -21,18 +22,19 @@ const CountryDetail = ({ code }) => {
       setImage(localStorage.getItem(data.country.name))
     }
   }, [loading, data])
-  if (loading) return <p>LOADING</p>
+
+  if (loading) return <Loader />
 
   return (
-    <div className="w-full h-full bg-white flex flex-col justify-start items-center gap-3 px-8 pt-4">
+    <div className="w-full h-full flex flex-col justify-start items-center gap-1 px-8 pt-0">
       <img
         src={image}
         alt="img"
         className='h-48 w-full rounded-xl'
       />
 
-      <div className="h-fit w-full flex">
-        <picture className="h-full w-1/4 flex justify-center items-center">
+      <div className="h-fit w-full flex gap-3">
+        <picture className="h-full w-16 flex justify-center items-center">
           <img
             src={`https://flagcdn.com/h40/${code.toLowerCase()}.webp`}
             alt={code}
@@ -40,7 +42,7 @@ const CountryDetail = ({ code }) => {
           />
         </picture>
 
-        <div className="h-full w-3/4 flex flex-col justify-center items-start">
+        <div className="h-full glex-grow flex flex-col justify-center items-start">
           <p className="w-full text-lg text-blue group-hover:text-white font-bold truncate">
             {data.country.name}
           </p>
@@ -62,20 +64,25 @@ const CountryDetail = ({ code }) => {
           <span className={content}>{data.country.currencies.join(', ')}</span>
         </p>
         <p className={subtitle}>
-          Region:
+          States:
         </p>
         <div className='flex flex-col gap-2 p-2 w-[90%] h-24 overflow-y-auto shadow-md shadow-silver'>
           {
-            data.country.states.map(state => {
-              return (
-                <p
-                  key={state}
-                  className='text-silver text-sm'
-                >
-                  {state.name}
-                </p>
+            data.country.states.length ?
+              (
+                data.country.states.map(state => {
+                  return (
+                    <p
+                      key={state}
+                      className=' text-sm'
+                    >
+                      {state.name}
+                    </p>
+                  )
+                })
               )
-            })
+              :
+              <p className="text-sm font-semibold">No states</p>
           }
         </div>
       </div>

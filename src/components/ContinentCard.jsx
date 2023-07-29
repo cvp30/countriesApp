@@ -1,47 +1,32 @@
 import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
 import useImage from "../hooks/useImage"
-import { useLazyQuery } from "@apollo/client"
-import { FILTER_BY_CONTINENT } from "../graphql"
-import { useEffect } from "react"
-import { CountriesData } from "../context/CountriesContext"
 
-const ContinentCard = ({ name, code, setActive }) => {
+const ContinentCard = ({ code, name, setIsOpen }) => {
 
   const image = useImage(name)
-  const { setCountriesArr } = CountriesData()
-  const [getCountries, result] = useLazyQuery(FILTER_BY_CONTINENT)
-
-  const filterCountries = () => {
-    getCountries({
-      variables: {
-        code
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (result.data) {
-      setCountriesArr(result.data.continent.countries)
-      setActive(false)
-    }
-  }, [result])
-
 
   return (
-    <div
-      onClick={() => filterCountries()}
-      className="h-36 w-36 cursor-pointer group"
+    <Link
+      to={`/continent/${code}`}
+      onClick={() => setIsOpen(false)}
+      className="h-36 w-36 group flex flex-col"
     >
-      <img src={image} alt={image} className="w-full h-5/6 rounded-xl group-hover:shadow-md group-hover:shadow-blue" />
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-5/6 rounded-xl group-hover:shadow-md group-hover:shadow-blue"
+      />
 
       <p className="font-semibold">{name}</p>
-    </div>
+    </Link>
   )
 }
 
-ContinentCard.propTypes = {
-  name: PropTypes.string,
-  code: PropTypes.string,
-  setActive: PropTypes.any
-}
 export default ContinentCard
+
+ContinentCard.propTypes = {
+  code: PropTypes.string,
+  name: PropTypes.string,
+  setIsOpen: PropTypes.any,
+}
