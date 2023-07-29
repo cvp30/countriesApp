@@ -5,6 +5,7 @@ const useImage = (name) => {
   const [image, setImage] = useState(localStorage.getItem(name))
 
   const KEY = import.meta.env.VITE_KEY
+  console.log(KEY)
 
   useEffect(() => {
     if (!image) {
