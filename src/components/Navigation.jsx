@@ -4,7 +4,7 @@ import Logo from "./Logo"
 import Menu from "./Menu"
 import { CloseIcon, MenuIcon } from "../icons"
 
-const Sidebar = () => {
+const Navigation = () => {
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -43,4 +43,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default Navigation
