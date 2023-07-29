@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom"
-import SideBar from "./SideBar"
 import SearchBar from "./SearchBar"
+import SideBar from "./SideBar"
 
 const MainPage = () => {
+
   return (
     <div className="w-full h-screen flex flex-col lg:flex-row justify-end items-center gap-4 lg:gap-0">
       <SideBar />
