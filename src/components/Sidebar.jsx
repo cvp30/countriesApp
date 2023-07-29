@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { CloseIcon, MenuIcon } from "../icons"
+import { Link } from "react-router-dom"
 import Logo from "./Logo"
 import Menu from "./Menu"
-import { Link } from "react-router-dom"
+import { CloseIcon, MenuIcon } from "../icons"
 
-const SideBar = () => {
+const Sidebar = () => {
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -43,4 +43,4 @@ const SideBar = () => {
   )
 }
 
-export default SideBar
+export default Sidebar
