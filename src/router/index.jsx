@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
+import MainPage from '../components/MainPage';
 import Home from "../pages/Home"
-import MainPage from '../layout/MainPage';
-import Continent from '../pages/Continent';
+import Continent from '../pages/Continent'
 
 export const router = createBrowserRouter([
   {

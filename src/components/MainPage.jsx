@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
-import SideBar from "../components/SideBar"
-import SearchBar from "../components/SearchBar"
+import SideBar from "./SideBar"
+import SearchBar from "./SearchBar"
 
 const MainPage = () => {
   return (
